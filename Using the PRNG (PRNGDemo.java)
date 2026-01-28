@@ -1,0 +1,20 @@
+public class PRNGDemo {
+
+    public static void main(String[] args) {
+
+        System.out.println("Random Integer:");
+        System.out.println(CustomRandom.random());
+
+        System.out.println("\nRandom Integer (10 to 50):");
+        System.out.println(CustomRandom.random(10, 50));
+
+        System.out.println("\nRandom Double:");
+        System.out.println(CustomRandom.randomDouble());
+
+        System.out.println("\nRandom Float:");
+        System.out.println(CustomRandom.randomFloat());
+
+        System.out.println("\nMixed Random Number:");
+        System.out.println(CustomRandom.randomMixed(1, 10));
+    }
+}
