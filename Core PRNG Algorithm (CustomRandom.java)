@@ -1,0 +1,48 @@
+public class CustomRandom {
+
+    // internal seed (static state)
+    private static long seed = System.nanoTime();
+
+    // constants for PRNG (LCG + bit mixing)
+    private static final long A = 1664525;
+    private static final long C = 1013904223;
+    private static final long M = (1L << 32);
+
+    // core generator (private)
+    private static long nextSeed() {
+        seed = (A * seed + C) % M;
+        seed ^= (seed << 13);
+        seed ^= (seed >>> 7);
+        seed ^= (seed << 17);
+        return seed;
+    }
+
+    // ---------- METHOD OVERLOADING ----------
+
+    // generate random int
+    public static int random() {
+        return (int) (Math.abs(nextSeed()) % Integer.MAX_VALUE);
+    }
+
+    // generate random int in range
+    public static int random(int min, int max) {
+        return min + (int)(Math.abs(nextSeed()) % (max - min + 1));
+    }
+
+    // generate random double [0,1)
+    public static double randomDouble() {
+        return (Math.abs(nextSeed()) / (double) M);
+    }
+
+    // generate random float [0,1)
+    public static float randomFloat() {
+        return (float)(Math.abs(nextSeed()) / (float) M);
+    }
+
+    // mixed random: int + fraction
+    public static double randomMixed(int min, int max) {
+        int whole = random(min, max);
+        double fraction = randomDouble();
+        return whole + fraction;
+    }
+}
